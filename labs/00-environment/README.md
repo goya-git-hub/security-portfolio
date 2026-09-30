@@ -1,14 +1,19 @@
 # Lab Environment Baseline
 
 ## Virtual Machine Inventory
-| Hostname | Operating System | IP Address | Resources |
-| :--- | :--- | :--- | :--- |
-| Linux Server | Ubuntu 26.04.1 LTS ARM64 | 192.168.128.4 | 2 vCPU, 4GB RAM |
-| SIEM Host | Ubuntu 26.04.1 LTS ARM64 | 192.168.128.6 | 2 vCPU, 4GB RAM |
+| UTM Name | Hostname | Address | Network | Purpose |
+| :--- | :--- | :--- | :--- | :--- |
+| Linux Server | lab-linux | 192.168.64.3 | Shared | Web server lab, baseline tasks |
+| SIEM Host | lab-siem | 192.168.64.5 | Shared | SIEM, from Phase 3 |
 
 ## Snapshot Policy
-* **Baseline Snapshots:** A `clean-install` snapshot was successfully taken for both the Linux Server and SIEM Host immediately following initial configuration, SSH setup, and system updates.
-* **Recovery Protocol:** In the event that a destructive lab exercise critically damages a machine, the procedure is to revert to the `clean-install` snapshot using `qemu-img` to immediately restore base functionality without requiring an OS reinstall.
+* Each VM has its original clean-install snapshot and a 2026-09-30-clean-synced-clock snapshot: correct clock, working internet.
+* Snapshots are disk-only and taken with the VM shut down (`sudo poweroff`), by running `qemu-img snapshot -c <date>-<purpose> *.qcow2` in the VM's Data folder.
+* To roll back: shut the VM down, then run `qemu-img snapshot -a <name> *.qcow2`.
+* Name every snapshot by date and purpose. Shut VMs down rather than suspending them.
 
 ## Network Diagram
-*(Network diagram image will be placed here)*
+Mac (UTM host)
+ └── Shared Network (NAT to the internet)
+      ├── Linux Server (lab-linux)
+      └── SIEM Host (lab-siem)
