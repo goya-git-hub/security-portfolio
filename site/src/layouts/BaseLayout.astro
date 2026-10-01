@@ -1,0 +1,25 @@
+---
+const { title } = Astro.props;
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title} | Wexmoor</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <nav>
+      <a href="/">Home</a> |
+      <a href="/product/">Product</a> |
+      <a href="/about/">About</a> |
+      <a href="/trust/">Trust Center</a>
+    </nav>
+    <main>
+      <slot />
+    </main>
+    <footer>
+      <p><em>Wexmoor is a fictional company created as a security portfolio by Goya. All staff, customers, datasets, and files are fictional or synthetic.</em></p>
+    </footer>
+  </body>
+</html>

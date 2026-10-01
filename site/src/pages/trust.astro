@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+export const prerender = true;
+---
+<BaseLayout title="Trust Center">
+  <h1>Trust Center</h1>
+  <p>How Wexmoor protects customer data, and exactly how far each control has got. A control is listed as <strong>Implemented and tested</strong> only after its test has passed.</p>
+  <table>
+    <thead><tr><th>Control</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Each customer's data kept separate from other customers' data</td><td class="planned">Planned</td></tr>
+      <tr><td>API keys stored securely, with rotation and revocation</td><td class="planned">Planned</td></tr>
+      <tr><td>Staff access to customer data: a documented reason, an approver, a time limit, and a log entry</td><td class="planned">Planned</td></tr>
+      <tr><td>Phishing and payment-fraud procedures</td><td class="planned">Planned</td></tr>
+      <tr><td>Logging of requests to this website, including pages that do not exist</td><td class="planned">Planned</td></tr>
+    </tbody>
+  </table>
+  <p>Status labels: <strong>Implemented and tested</strong>, <strong>Simulated</strong>, and <strong>Planned</strong>.</p>
+</BaseLayout>
