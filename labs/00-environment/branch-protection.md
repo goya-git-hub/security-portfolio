@@ -6,7 +6,7 @@ Enforces: a pull request for every change, no force pushes, no deletions.
 
 ## Test
 
-A direction push to main was rejected, even from the repository owner:
+A direct push to main was rejected, even from the repository owner:
 
 remote: error: GH013: Repository rule violations found for refs/heads/main.
 remote: - Changes must be made through a pull request.
