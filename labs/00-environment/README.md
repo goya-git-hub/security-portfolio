@@ -17,3 +17,20 @@ Mac (UTM host)
  └── Shared Network (NAT to the internet)
       ├── Linux Server (lab-linux)
       └── SIEM Host (lab-siem)
+
+## Tool versions (checked 2026-10-02)
+
+| Tool | Version | Where |
+| :--- | :--- | :--- |
+| git | 2.54.0 | Mac |
+| Node | 24.15.0 | Mac |
+| pipx | 1.11.1 | Mac |
+| gitleaks | 8.30.1 | Mac |
+| GitHub CLI (gh) | 2.102.0 | Mac |
+| GNU nano | 9.2 | Mac |
+| QEMU (qemu-img) | 11.1.1 | Mac |
+| TShark (Wireshark) | 4.6.7 | Mac |
+| Wrangler | 4.146.0 | Mac, through npx |
+| Astro | 7.3.5 | site/ |
+| @astrojs/cloudflare | 14.3.3 | site/ |
+| Ubuntu Server | 26.04.1 LTS, ARM64 | both VMs |
