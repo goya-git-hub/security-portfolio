@@ -1,19 +1,94 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
 export const prerender = true;
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const controls = [
+  {
+    name: 'Changes are reviewed before release',
+    meaning: 'Every change goes through a pull request. Nobody, including the owner, can push straight to the live branch.',
+    state: 'In place',
+  },
+  {
+    name: 'Secrets stay out of the code',
+    meaning: 'Every commit is scanned for keys and passwords before it is saved.',
+    state: 'In place',
+  },
+  {
+    name: 'Third-party code is checked before use',
+    meaning: 'Every package version is pinned by a lockfile, and new versions are reviewed before they are used.',
+    state: 'Planned',
+  },
+  { name: 'Encrypted connections', meaning: 'Every page is served over HTTPS only.', state: 'Planned' },
+  {
+    name: 'Request logging',
+    meaning: 'Requests to this site, including pages that do not exist, are recorded and reviewed.',
+    state: 'Planned',
+  },
+  {
+    name: 'Security headers',
+    meaning: 'A content security policy and related headers limit what the browser will load.',
+    state: 'Planned',
+  },
+  { name: 'Rate limiting', meaning: 'Abusive bursts of traffic are slowed or blocked at the edge.', state: 'Planned' },
+  {
+    name: 'Vulnerability reporting',
+    meaning: 'A published security.txt file says where to report a problem.',
+    state: 'Planned',
+  },
+];
 ---
-<BaseLayout title="Trust Center">
-  <h1>Trust Center</h1>
-  <p>How Wexmoor protects customer data, and exactly how far each control has got. A control is listed as <strong>Implemented and tested</strong> only after its test has passed.</p>
-  <table>
-    <thead><tr><th>Control</th><th>Status</th></tr></thead>
-    <tbody>
-      <tr><td>Each customer's data kept separate from other customers' data</td><td class="planned">Planned</td></tr>
-      <tr><td>API keys stored securely, with rotation and revocation</td><td class="planned">Planned</td></tr>
-      <tr><td>Staff access to customer data: a documented reason, an approver, a time limit, and a log entry</td><td class="planned">Planned</td></tr>
-      <tr><td>Phishing and payment-fraud procedures</td><td class="planned">Planned</td></tr>
-      <tr><td>Logging of requests to this website, including pages that do not exist</td><td class="planned">Planned</td></tr>
-    </tbody>
-  </table>
-  <p>Status labels: <strong>Implemented and tested</strong>, <strong>Simulated</strong>, and <strong>Planned</strong>.</p>
+<BaseLayout
+  title="Trust Center"
+  description="The real security state of the Wexmoor website: each control and whether it is in place or planned."
+>
+  <section class="section page-head" aria-labelledby="page-title">
+    <h1 id="page-title">Trust Center</h1>
+    <p class="lede">The real security state of this website. A control is marked In place only when it works and has been tested. Everything else is Planned.</p>
+  </section>
+
+  <section class="section" aria-labelledby="controls-title">
+    <div class="section-head">
+      <h2 id="controls-title">Controls</h2>
+    </div>
+    <div class="table-block">
+      <table class="data-table controls" aria-labelledby="controls-title">
+        <thead>
+          <tr>
+            <th scope="col">Control</th>
+            <th scope="col">What it means</th>
+            <th scope="col" class="col-state">State</th>
+          </tr>
+        </thead>
+        <tbody>
+          {controls.map((control) => (
+            <tr>
+              <th scope="row">{control.name}</th>
+              <td class="col-meaning">{control.meaning}</td>
+              <td class="col-state">
+                <span class={control.state === 'In place' ? 'tag tag-live' : 'tag tag-plan'}>{control.state}</span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section split" aria-labelledby="holds-title">
+    <div class="section-head">
+      <h2 id="holds-title">What this website holds</h2>
+    </div>
+    <div class="prose">
+      <p class="prose-lead">No accounts, no forms, and no customer data. It serves pre-built pages only, which keeps the parts that could be attacked to a minimum.</p>
+    </div>
+  </section>
+
+  <section class="section split" aria-labelledby="report-title">
+    <div class="section-head">
+      <h2 id="report-title">Reporting a problem</h2>
+    </div>
+    <div class="prose">
+      <p class="prose-lead">A security.txt file is planned. Until then, open an issue on <a href="https://github.com/goya-git-hub/security-portfolio">the project's public repository</a>.</p>
+    </div>
+  </section>
 </BaseLayout>
