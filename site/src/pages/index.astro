@@ -1,9 +1,140 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
 export const prerender = true;
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const moves = [
+  { store: 'Kelowna 112', item: 'Water, 24-pack', units: 340, call: 'Send early' },
+  { store: 'Moncton 087', item: 'Ice melt, 10 kg', units: 0, call: 'Hold' },
+  { store: 'Saskatoon 203', item: 'School backpacks', units: 128, call: 'On plan' },
+  { store: 'Kingston 044', item: 'Patio heaters', units: 36, call: 'Send early' },
+  { store: 'Red Deer 019', item: 'Snow shovels', units: 92, call: 'On plan' },
+];
+const callClass: Record<string, string> = {
+  'Send early': 'tag tag-label',
+  'On plan': 'tag tag-plan',
+  Hold: 'tag tag-hold',
+};
+
+const capabilities = [
+  {
+    term: 'Forecasts demand for every store',
+    text: 'Daily forecasts for each item in each store, twelve weeks ahead, built from your own sales history, local weather, and promotions.',
+  },
+  {
+    term: 'Shows stock across every warehouse',
+    text: 'On-hand and in-transit inventory in one view, so a shortage in one region can be covered from another before anyone notices.',
+  },
+  {
+    term: 'Holds carriers to their promises',
+    text: 'Pickup and delivery times matched against each shipment, lane by lane, so late carriers show up in the numbers, not in complaints.',
+  },
+];
+
+const steps = [
+  { name: 'Connect', text: 'Sales, stock, and carrier files arrive from the systems you already use.' },
+  { name: 'Check', text: 'Every file is validated. Bad rows are set aside and reported, never guessed at.' },
+  { name: 'Forecast', text: "Models run for each store and item, and compare themselves with last week's results." },
+  { name: 'Act', text: 'Planners start the day with a short list of moves, ranked by what they save.' },
+];
+
+const customers = [
+  { name: 'Northline Grocers', className: 'logo-northline' },
+  { name: 'Cascade Freight', className: 'logo-cascade' },
+  { name: 'Harbourview Home', className: 'logo-harbourview' },
+  { name: 'Prairie Supply Co.', className: 'logo-prairie' },
+];
 ---
-<BaseLayout title="Home">
-  <h1>Wexmoor</h1>
-  <p>Wexmoor is a data-analytics company for retail and logistics businesses. Customers upload operational data and ask questions of it in their own private workspace.</p>
-  <p>Wexmoor is fictional. See the <a href="/trust/">Trust Center</a> for what is protected today and what is still planned.</p>
+<BaseLayout
+  title="Home"
+  description="Wexmoor forecasts store-by-store demand from sales, warehouse stock, and carrier data, so planners move inventory before shelves run short."
+>
+  <section class="section hero" aria-labelledby="hero-title">
+    <div>
+      <h1 id="hero-title">Know what each store needs before the truck leaves.</h1>
+      <p class="lede">Wexmoor brings store sales, warehouse stock, and carrier data into one place, then forecasts demand store by store, so planners move inventory before shelves run short.</p>
+      <div class="actions">
+        <a class="button" href="/product/">See the product</a>
+        <a class="text-link" href="/trust/">Read the Trust Center</a>
+      </div>
+    </div>
+    <figure class="manifest" aria-labelledby="manifest-title">
+      <div class="manifest-head">
+        <p class="manifest-title" id="manifest-title">Tuesday's moves</p>
+        <p class="manifest-meta">Distribution centre 04, next seven days</p>
+      </div>
+      <table class="manifest-table" aria-labelledby="manifest-title">
+        <thead>
+          <tr>
+            <th scope="col">Store</th>
+            <th scope="col">Item</th>
+            <th scope="col" class="num">Units</th>
+            <th scope="col">Call</th>
+          </tr>
+        </thead>
+        <tbody>
+          {moves.map((move) => (
+            <tr>
+              <th scope="row" class="m-store">{move.store}</th>
+              <td class="m-item">{move.item}</td>
+              <td class="m-units num">{move.units}<span class="units-word"> units</span></td>
+              <td class="m-call"><span class={callClass[move.call]}>{move.call}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <figcaption>Refreshed overnight from sales, stock, and carrier feeds.</figcaption>
+    </figure>
+  </section>
+
+  <section class="section" aria-labelledby="does-title">
+    <div class="section-head">
+      <h2 id="does-title">What Wexmoor does</h2>
+    </div>
+    <dl class="def-list">
+      {capabilities.map((item) => (
+        <div>
+          <dt>{item.term}</dt>
+          <dd>{item.text}</dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+
+  <section class="section" aria-labelledby="moves-title">
+    <div class="section-head">
+      <h2 id="moves-title">How your data moves</h2>
+      <p>Four steps, every night, with nothing for your team to run by hand.</p>
+    </div>
+    <ol class="pipeline">
+      {steps.map((step, index) => (
+        <li>
+          <span class="stop" aria-hidden="true">{index + 1}</span>
+          <h3>{step.name}</h3>
+          <p>{step.text}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="section" aria-labelledby="customers-title">
+    <div class="section-head">
+      <h2 id="customers-title">Teams that move goods with Wexmoor</h2>
+    </div>
+    <ul class="customers">
+      {customers.map((customer) => (
+        <li><span class={customer.className}>{customer.name}</span></li>
+      ))}
+    </ul>
+    <p class="customers-note">Customer names are fictional, like the company.</p>
+  </section>
+
+  <section class="band" aria-labelledby="band-title">
+    <div class="wrap band-inner">
+      <div class="band-copy">
+        <h2 id="band-title">Security you can check</h2>
+        <p>Our Trust Center lists every control on this website with its real state, in place or planned. Nothing is marked done until it works.</p>
+      </div>
+      <a class="button button-label" href="/trust/">Read the Trust Center</a>
+    </div>
+  </section>
 </BaseLayout>
