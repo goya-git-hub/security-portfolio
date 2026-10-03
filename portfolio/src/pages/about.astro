@@ -1,0 +1,58 @@
+---
+export const prerender = true;
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const principles = [
+  { name: 'Evidence first', text: 'a claim on this site points to the lab write-up that proves it.' },
+  { name: 'Inspect before trusting', text: 'downloads, packages, and messages are checked before they are used.' },
+  { name: 'In the open', text: 'the code and the write-ups live in a public repository, with their full history.' },
+  { name: 'Every change reviewed', text: 'nothing reaches the live sites without going through a pull request.' },
+  { name: 'Tools disclosed', text: 'where an AI assistant helped, the write-up says what it did and what stayed my work.' },
+];
+---
+<BaseLayout
+  title="About"
+  description="Goya, based in British Columbia, is building a career in IT, networking, and security, one documented lab at a time."
+>
+  <section class="page-head" aria-labelledby="page-title">
+    <h1 id="page-title">About</h1>
+    <p class="lede">I'm Goya, based in British Columbia. I'm building a career in IT, networking, and security, one documented lab at a time.</p>
+  </section>
+
+  <section class="section" aria-labelledby="why-title">
+    <h2 id="why-title">Why security</h2>
+    <p>Troy fell to a gift it never inspected. Most intrusions still begin the same way: an attachment, a package, an update, a download. I want to be the person who checks the gift before it is carried inside.</p>
+  </section>
+
+  <section class="section" aria-labelledby="bring-title">
+    <h2 id="bring-title">What I bring</h2>
+    <p>Coursework at BCIT in programming, Linux, networking, security, and SQL, and a habit of writing every step down so someone else can check it.</p>
+  </section>
+
+  <section class="section" aria-labelledby="roles-title">
+    <h2 id="roles-title">Roles I'm aiming for</h2>
+    <p>Entry roles on a team I can learn from: security operations first, with IT support, networking, and junior governance roles alongside. The <a href="/tour/">Tour</a> shows the evidence for each.</p>
+  </section>
+
+  <section class="section" aria-labelledby="work-title">
+    <h2 id="work-title">How I work</h2>
+    <ul class="principles">
+      {principles.map((item) => (
+        <li>
+          <span class="seal" aria-hidden="true"></span>
+          <span><strong>{item.name}:</strong> {item.text}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="section" aria-labelledby="company-title">
+    <h2 id="company-title">The company I protect</h2>
+    <p>Most of my security work is done for Wexmoor, a fictional data company. I run its public website and defend it in the open, so the work is real even though the company is not.</p>
+  </section>
+
+  <section class="section" aria-labelledby="find-title">
+    <h2 id="find-title">Find me</h2>
+    <p><a href="https://github.com/goya-git-hub">GitHub</a></p>
+  </section>
+</BaseLayout>
