@@ -39,10 +39,6 @@
   --joint: #cfcbc1;
 
   --on-bronze: #fbf8f2;
-  --lintel: #dcd8ce;
-  --infill: #e3e0d9;
-  --infill-joint: #b9b4ab;
-  --passage: linear-gradient(to bottom, rgb(31 28 25 / 0.62), rgb(31 28 25 / 0.14) 70%, rgb(31 28 25 / 0.06));
 
   --text-sm: 0.9375rem;
   --text-md: 1.125rem;
@@ -54,7 +50,6 @@
   --shell: 72rem;
   --gutter: clamp(1.25rem, 4vw, 2.5rem);
   --measure: 64ch;
-  --course: 22px;
 }
 
 /* The night the horse came in */
@@ -71,10 +66,6 @@
     --joint: #2b2f38;
 
     --on-bronze: #14161b;
-    --lintel: #2a2e37;
-    --infill: #23262e;
-    --infill-joint: #4a4e57;
-    --passage: linear-gradient(to bottom, rgb(0 0 0 / 0.7), rgb(212 161 90 / 0.12) 75%, rgb(212 161 90 / 0.22));
   }
 }
 
@@ -188,50 +179,6 @@ a:hover {
 .shell {
   width: min(calc(100% - 2 * var(--gutter)), var(--shell));
   margin-inline: auto;
-}
-
-/* Masonry: courses every 22 px, vertical joints offset on alternate courses. */
-.gate-wall,
-.gates::before,
-.citadel-wall,
-.swatch-wall {
-  --mortar: var(--joint);
-  --brick: calc(var(--course) * 2);
-  background-color: var(--block);
-  background-image:
-    conic-gradient(from 270deg at 1px var(--course), var(--mortar) 0 90deg, transparent 0),
-    conic-gradient(from 180deg at 1px var(--course), var(--mortar) 0 90deg, transparent 0),
-    repeating-linear-gradient(to bottom, transparent 0 calc(var(--course) - 1px), var(--mortar) calc(var(--course) - 1px) var(--course));
-  background-size:
-    var(--brick) calc(var(--course) * 2),
-    var(--brick) calc(var(--course) * 2),
-    auto;
-  background-position:
-    0 0,
-    calc(var(--brick) / 2) 0,
-    0 0;
-}
-
-/* Bricked-up infill: smaller courses in a lighter, weathered tone. */
-.gate-sealed .gate-opening,
-.room.room-sealed::after,
-.swatch-sealed {
-  --brick-h: 11px;
-  --mortar: var(--infill-joint);
-  --brick-w: 22px;
-  background-color: var(--infill);
-  background-image:
-    conic-gradient(from 270deg at 1px var(--brick-h), var(--mortar) 0 90deg, transparent 0),
-    conic-gradient(from 180deg at 1px var(--brick-h), var(--mortar) 0 90deg, transparent 0),
-    repeating-linear-gradient(to bottom, transparent 0 calc(var(--brick-h) - 1px), var(--mortar) calc(var(--brick-h) - 1px) var(--brick-h));
-  background-size:
-    var(--brick-w) calc(var(--brick-h) * 2),
-    var(--brick-w) calc(var(--brick-h) * 2),
-    auto;
-  background-position:
-    0 0,
-    calc(var(--brick-w) / 2) 0,
-    0 0;
 }
 
 /* Header */
@@ -477,7 +424,6 @@ main {
 }
 
 .section h2 + p,
-.section h2 + .gate-legend,
 .section h2 + ul,
 .section h2 + .table-block {
   margin-top: 1rem;
@@ -691,327 +637,257 @@ main {
   }
 }
 
-/* Gate wall: the Tour's signature element */
-
-.gate-legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1.75rem;
-  list-style: none;
-  color: var(--muted);
-  font-size: var(--text-sm);
-}
-
-.gate-legend li {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-}
-
-.swatch {
-  display: inline-block;
-  width: 1.4rem;
-  height: 1.6rem;
-  border: 2px solid var(--ink);
-  border-bottom: 0;
-}
-
-.swatch-open {
-  background: var(--passage), var(--stone);
-}
-
-.swatch-sealed {
-  border-color: var(--weathered-line);
-}
-
-.gates-frame {
-  container-type: inline-size;
-  margin-top: 2rem;
-}
+/* Gate index: one row per role */
 
 .gates {
-  position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 2.25rem;
+  margin-top: 2rem;
   list-style: none;
 }
 
 .gate {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  align-content: start;
-  gap: 1rem;
-}
-
-.gate-wall {
   position: relative;
-  height: calc(var(--course) * 8 + 4px);
-  border-block: 2px solid var(--ink);
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr);
+  gap: 0.75rem 1rem;
+  padding: 1.5rem 0 1.5rem 1rem;
+  border-top: 1px solid var(--joint);
 }
 
-.gate-lintel {
+.gate-open::before {
+  content: '';
   position: absolute;
-  left: 50%;
-  bottom: calc(var(--course) * 5);
-  width: 8.25rem;
-  height: calc(var(--course) + 2px);
-  transform: translateX(-50%);
-  background: var(--lintel);
-  border: 2px solid var(--ink);
-}
-
-.gate-opening {
-  position: absolute;
-  left: 50%;
+  top: 0;
   bottom: 0;
-  width: 6rem;
-  height: calc(var(--course) * 5);
-  transform: translateX(-50%);
-  overflow: hidden;
-  border: 2px solid var(--ink);
-  border-bottom: 0;
+  left: 0;
+  width: 3px;
+  background: var(--bronze);
 }
 
-.gate-open .gate-opening {
-  background: var(--passage), var(--stone);
+.gate-icon {
+  align-self: start;
+  display: flex;
+  align-items: center;
+  height: 1.8rem;
 }
 
-.gate-sealed .gate-lintel {
-  border-color: var(--weathered-line);
+.gate-icon .seal {
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
-.gate-sealed .gate-opening {
-  border-color: var(--weathered-line);
+.gate-icon .seal::after {
+  width: 0.34rem;
+  height: 0.64rem;
 }
 
-.portcullis {
-  position: absolute;
-  inset: 0;
-  background:
-    repeating-linear-gradient(to bottom, transparent 0 26px, var(--ink) 26px 29px),
-    repeating-linear-gradient(to right, transparent 0 8px, var(--ink) 8px 11px);
-  transform: translateY(-101%);
+.seal-pending {
+  border-color: var(--weathered);
+  border-style: dashed;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .portcullis {
-    animation: portcullis-lift 1.8s cubic-bezier(0.55, 0, 0.25, 1) 0.6s both;
-  }
+.seal-pending::after {
+  content: none;
 }
 
-@keyframes portcullis-lift {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(-101%);
-  }
+.gate-text h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.2;
 }
 
-.gate-body h3 {
-  margin-bottom: 0.4rem;
-}
-
-.gate-body p {
+.gate-text p {
+  max-width: 52ch;
+  margin-top: 0.5rem;
   color: var(--muted);
 }
 
 .gate-state {
-  margin-top: 0.8rem;
+  grid-column: 2;
   font-weight: 600;
-}
-
-.gate-state a {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
 }
 
 .gate-sealed .gate-state {
   color: var(--weathered);
 }
 
-/* Medium: each gate beside its own short section of wall */
-@container (width >= 34rem) {
+@media (width >= 48rem) {
   .gate {
-    grid-template-columns: 14rem minmax(0, 1fr);
-    gap: 1.75rem;
-    align-items: center;
+    grid-template-columns: 2.25rem minmax(0, 1fr) 12rem;
+    gap: 1.5rem;
+    padding-block: 2rem;
+    padding-left: 1.5rem;
+  }
+
+  /* The role and the state share a baseline. */
+  .gate-text,
+  .gate-state {
+    align-self: baseline;
+  }
+
+  .gate-state {
+    grid-column: 3;
   }
 }
 
-/* Wide: one continuous wall with five openings */
-@container (width >= 52rem) {
-  .gates {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 0;
-  }
+/* Lab schematic: one host, four machines, one shared network */
 
-  .gates::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: calc(var(--course) * 8 + 4px);
-    border-block: 2px solid var(--ink);
-  }
-
-  .gate {
-    grid-template-columns: minmax(0, 1fr);
-    align-items: start;
-    gap: 1.25rem;
-  }
-
-  .gate-wall {
-    background: none;
-    border-color: transparent;
-  }
-
-  .gate-body {
-    padding-inline: 0.6rem;
-  }
-
-  .gate-body h3 {
-    font-size: 1.2rem;
-  }
-
-  .gate-body p {
-    font-size: var(--text-sm);
-    line-height: 1.55;
-  }
-
-  .gate-body .gate-state {
-    font-size: var(--text-sm);
-  }
+.lab {
+  margin: 2rem 0 0;
 }
 
-/* The lab inside the walls */
-
-.citadel {
-  margin: 1.75rem 0 0;
+.lab-frame {
+  container: lab / inline-size;
+  padding: 1.5rem;
+  border: 1px solid var(--joint);
+  border-radius: 14px;
 }
 
-.citadel-label {
-  margin-bottom: 0.75rem;
+.lab-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.lab-host {
   font-weight: 600;
 }
 
-.citadel-wall {
-  padding: calc(var(--course) + 2px);
-  border: 2px solid var(--ink);
+.lab-head .lab-count {
+  margin-top: 0;
+  color: var(--muted);
+  font-size: var(--text-sm);
 }
 
-.citadel-inner {
+.machines {
   display: grid;
-  gap: 1.25rem;
-  padding: 1.25rem;
-  background: var(--stone);
-  border: 2px solid var(--ink);
-}
-
-.rooms {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 1rem;
   list-style: none;
 }
 
-.room {
+.machine {
   position: relative;
-  padding: 0.85rem 0.9rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  padding: 18px;
   background: var(--block);
-  border: 3px solid var(--ink);
+  border: 1px solid var(--joint);
+  border-radius: 10px;
 }
 
-.room::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  bottom: -3px;
-  width: 2.25rem;
-  height: 3px;
-  transform: translateX(-50%);
-  background: var(--stone);
+.machine-planned {
+  border-style: dashed;
+  border-color: var(--weathered-line);
 }
 
-.room h3 {
-  font-size: 1.125rem;
-  margin-bottom: 0.3rem;
+.machine h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.3;
 }
 
-.room p {
+.machine-role {
+  margin-top: 0.5rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.machine .machine-status {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.status-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--bronze);
+}
+
+.chip {
+  white-space: nowrap;
+  /* The border adds no height, so the text shares the "Built" baseline. */
+  margin-block: -1px;
+  padding: 0 0.75rem;
+  border: 1px dashed var(--weathered-line);
+  border-radius: 999px;
+  color: var(--weathered);
+}
+
+.network {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  max-width: none;
+  margin-top: 1rem;
+  /* Inset to match the card text: 18 px padding inside a 1 px border. */
+  padding: 0.75rem 18px;
+  border: 1px solid var(--joint);
+  border-radius: 999px;
   color: var(--muted);
   font-size: var(--text-sm);
   line-height: 1.5;
 }
 
-.room-sealed {
-  border-color: var(--weathered-line);
-  border-style: solid;
-}
-
-.room-sealed h3,
-.room-sealed p {
-  color: var(--weathered);
-}
-
-.room.room-sealed::after {
-  bottom: -3px;
-  height: 14px;
-  border-inline: 2px solid var(--weathered-line);
-}
-
-.street {
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 0.25rem 1.5rem;
-  max-width: none;
-  margin-right: calc(-1.25rem - 2px - var(--course) - 2px - 2px);
-  padding: 0.65rem 1.25rem 0.7rem 0;
-  border-block: 2px solid var(--ink);
-  background: var(--stone);
-  color: var(--muted);
-  font-size: var(--text-sm);
+.network span:first-child {
+  color: var(--ink);
   font-weight: 600;
 }
 
-.street-exit {
-  text-align: right;
-}
-
-.citadel figcaption {
-  margin-top: 1rem;
+.lab figcaption {
   max-width: var(--measure);
+  margin-top: 1rem;
   color: var(--muted);
   font-size: var(--text-sm);
+  text-wrap: pretty;
 }
 
-@media (width < 72rem) {
-  .rooms {
+@media (width >= 34rem) {
+  .machines {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .network {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
 }
 
-@media (width < 34rem) {
-  .rooms {
-    grid-template-columns: minmax(0, 1fr);
-  }
+/* Four across, with connectors, from 64 rem once each card has room for its name on one line. */
+@media (width >= 64rem) {
+  @container lab (width >= 53rem) {
+    .machines {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
 
-  .citadel-wall {
-    padding: var(--course);
-  }
+    /* Connectors: from each card's outer edge to the bar's outer edge, 28 px. */
+    .network {
+      margin-top: 28px;
+    }
 
-  .citadel-inner {
-    padding: 1rem;
-  }
+    .machine::after {
+      content: '';
+      position: absolute;
+      top: calc(100% + 1px);
+      left: 50%;
+      height: 28px;
+      border-left: 1px solid var(--joint);
+    }
 
-  .street {
-    margin-right: calc(-1rem - 2px - var(--course) - 2px - 2px);
-    padding-right: 1rem;
+    .machine-planned::after {
+      border-left: 1px dashed var(--weathered-line);
+    }
   }
 }
 
