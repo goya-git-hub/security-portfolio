@@ -1,0 +1,34 @@
+---
+export const prerender = true;
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CaseFileBody from '../../components/CaseFileBody.astro';
+import { checkPrivacy, getCaseFiles, type CaseFile } from '../../lib/caseFileEntries';
+
+export async function getStaticPaths() {
+  const files = await getCaseFiles();
+  // Stops the build, naming file, line and match, before any page is written.
+  checkPrivacy(files);
+  return files.map((file) => ({ params: { slug: file.slug }, props: { file } }));
+}
+
+interface Props {
+  file: CaseFile;
+}
+
+const { file } = Astro.props;
+const { Content } = await render(file.entry);
+---
+<BaseLayout title={file.title} description={file.summary?.replace(/\n/g, ' ') ?? `${file.title}: a case file from Goya's lab.`}>
+  <article aria-labelledby="page-title">
+    <header class="page-head case-head">
+      <p class="case-back"><a href="/labs/">Case files</a></p>
+      <h1 id="page-title">{file.title}</h1>
+      {file.summaryHtml && <p class="lede case-summary" set:html={file.summaryHtml} />}
+      <p class="case-source"><a href={file.sourceUrl}>View source on GitHub</a></p>
+    </header>
+    <div class="section case-body">
+      <CaseFileBody><Content /></CaseFileBody>
+    </div>
+  </article>
+</BaseLayout>

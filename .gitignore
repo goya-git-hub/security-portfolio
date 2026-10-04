@@ -1,0 +1,29 @@
+*.pcap
+*.evtx
+*.key
+.env
+.dev.vars
+node_modules/
+
+# Captures and logs
+*.pcap
+*.pcapng
+*.evtx
+
+# Keys and secrets
+*.key
+.env
+.env.*
+!.env.example
+.dev.vars
+
+# Generated and dependency folders
+node_modules/
+dist/
+.astro/
+.wrangler/
+.venv/
+__pycache__/
+
+# macOS
+.DS_Store

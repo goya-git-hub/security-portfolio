@@ -1,0 +1,105 @@
+---
+export const prerender = true;
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const gates = [
+  {
+    role: 'IT support',
+    shows: 'A lab of virtual machines built and documented from scratch, broken services diagnosed, and accounts and permissions managed.',
+    open: { label: 'Read the lab write-up', href: '/labs/00-environment/' },
+  },
+  {
+    role: 'Networking',
+    shows: 'Packet captures read and explained, a segmented office network designed and tested, and DNS and TLS set up on a real domain.',
+    sealedUntil: 'Phase 1',
+  },
+  {
+    role: 'Governance and risk',
+    shows: 'Written security policies, a runbook, and a threat model for a live website.',
+    sealedUntil: 'Phase 2',
+  },
+  {
+    role: 'Security operations',
+    shows: "Phishing is a gift sent by email. This is where I learn to inspect it: investigations, a working SIEM, and detections tested against simulated attacks, including a trojan's persistence and its check-ins.",
+    sealedUntil: 'Phase 3',
+  },
+  {
+    role: 'Cloud and web security',
+    shows: 'A web application broken, detected, and fixed in a safe training environment, a supply-chain incident rehearsed, and a full restore from backup.',
+    sealedUntil: 'Phase 4',
+  },
+];
+
+const machines = [
+  { name: 'lab-linux', role: 'Ubuntu Server. The practice server for troubleshooting tickets.' },
+  { name: 'lab-siem', role: "Ubuntu Server. Collects every machine's logs once the SIEM arrives in Phase 3." },
+  { name: 'Kali', role: 'Testing machine. Kept powered off until a lab needs it.' },
+  {
+    name: 'Windows endpoint',
+    role: 'A Windows 11 machine to watch and defend. Added in Phase 3.',
+    plannedFor: 'Phase 3',
+  },
+];
+---
+<BaseLayout
+  title="Tour"
+  description="A one-minute walk-through of Goya's portfolio: one gate per role, each leading to the evidence for that job, and the lab inside the walls."
+>
+  <section class="page-head" aria-labelledby="page-title">
+    <h1 id="page-title">Tour</h1>
+    <p class="lede">A one-minute walk-through. Pick the gate for the role you're hiring for: each one leads to the evidence for that job.</p>
+  </section>
+
+  <section class="section" aria-labelledby="gates-title">
+    <h2 id="gates-title">Pick a gate</h2>
+    <p>Open gates link to evidence. Sealed gates open as each phase is finished.</p>
+    <ol class="gates">
+      {gates.map((gate) => (
+        <li class:list={['gate', gate.open ? 'gate-open' : 'gate-sealed']}>
+          <span class="gate-icon" aria-hidden="true">
+            <span class:list={['seal', { 'seal-pending': !gate.open }]}></span>
+          </span>
+          <div class="gate-text">
+            <h3>{gate.role}</h3>
+            <p>{gate.shows}</p>
+          </div>
+          {gate.open ? (
+            <p class="gate-state"><a href={gate.open.href}>{gate.open.label}</a></p>
+          ) : (
+            <p class="gate-state">Sealed until {gate.sealedUntil}</p>
+          )}
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="section" aria-labelledby="lab-title">
+    <h2 id="lab-title">Inside the walls: the lab</h2>
+    <figure class="lab">
+      <div class="lab-frame">
+        <div class="lab-head">
+          <p class="lab-host">One Mac running UTM</p>
+          <p class="lab-count">Three machines built, one planned</p>
+        </div>
+        <ul class="machines">
+          {machines.map((machine) => (
+            <li class:list={['machine', machine.plannedFor ? 'machine-planned' : 'machine-built']}>
+              <h3>{machine.name}</h3>
+              <p class="machine-role">{machine.role}</p>
+              {machine.plannedFor ? (
+                <p class="machine-status"><span class="chip">Planned, {machine.plannedFor}</span></p>
+              ) : (
+                <p class="machine-status"><span class="status-dot" aria-hidden="true"></span>Built</p>
+              )}
+            </li>
+          ))}
+        </ul>
+        <p class="network">
+          <span>Shared network</span>
+          <span>Out to the internet, through the Mac</span>
+        </p>
+      </div>
+      <figcaption>Solid borders are built machines; the dashed border is planned. The machines reach each other across the shared network and reach the internet through the Mac. Exact addresses are kept private.</figcaption>
+    </figure>
+  </section>
+</BaseLayout>

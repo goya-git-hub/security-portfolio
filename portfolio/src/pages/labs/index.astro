@@ -1,0 +1,35 @@
+---
+export const prerender = true;
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { checkPrivacy, getCaseFiles } from '../../lib/caseFileEntries';
+
+const files = await getCaseFiles();
+checkPrivacy(files);
+---
+<BaseLayout
+  title="Case files"
+  description="Goya's lab write-ups, published from the same Markdown files as the code repository, each with a link to its source."
+>
+  <section class="page-head" aria-labelledby="page-title">
+    <h1 id="page-title">Case files</h1>
+    <p class="lede">One page per lab write-up, published from the same files as the code repository. Each page links to its source.</p>
+  </section>
+
+  <section class="case-list" aria-label="Published case files">
+    {files.length === 0 ? (
+      <p class="case-empty">No case files are published yet.</p>
+    ) : (
+      <ol class="case-index">
+        {files.map((file) => (
+          <li class="case-row">
+            <p class="case-phase">{file.phase !== undefined ? `Phase ${file.phase}` : ''}</p>
+            <div class="case-text">
+              <h2><a href={file.href}>{file.title}</a></h2>
+              {file.summary && <p class="case-summary">{file.summary}</p>}
+            </div>
+          </li>
+        ))}
+      </ol>
+    )}
+  </section>
+</BaseLayout>

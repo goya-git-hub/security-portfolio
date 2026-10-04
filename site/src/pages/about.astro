@@ -1,0 +1,53 @@
+---
+export const prerender = true;
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const teams = [
+  { name: 'Platform engineering', text: 'Runs the systems the product is built on.' },
+  { name: 'Data engineering', text: 'Builds the nightly pipelines and the checks on every file.' },
+  { name: 'Solutions', text: "Connects each new customer's systems to Wexmoor." },
+  { name: 'Customer success', text: 'Helps planners turn forecasts into decisions.' },
+  { name: 'Sales', text: 'Works with retailers and logistics firms across Canada.' },
+  { name: 'Finance and operations', text: 'Keeps the company running and paid.' },
+  { name: 'People operations', text: 'Hires, onboards, and looks after the team.' },
+  { name: 'Product and design', text: 'Decides what to build next, and how it should feel.' },
+];
+---
+<BaseLayout
+  title="About"
+  description="Wexmoor is a 40-person company in Canada, led by two founders, building forecasting software for retailers and logistics companies."
+>
+  <section class="section page-head" aria-labelledby="page-title">
+    <h1 id="page-title">A small team for a heavy problem</h1>
+    <p class="lede">Wexmoor is a 40-person company in Canada, led by two founders. We build forecasting software for retailers and the logistics companies that serve them.</p>
+  </section>
+
+  <section class="section" aria-labelledby="teams-title">
+    <div class="section-head">
+      <h2 id="teams-title">How we are organised</h2>
+    </div>
+    <ul class="team">
+      {teams.map((team) => (
+        <li>
+          <h3>{team.name}</h3>
+          <p>{team.text}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="section split" aria-labelledby="work-title">
+    <div class="section-head">
+      <h2 id="work-title">Who we work with</h2>
+    </div>
+    <div class="prose">
+      <p class="prose-lead">Our first customers are retail chains and the freight and warehousing companies that supply them: businesses where a forecast that is a day late is a shelf that is empty.</p>
+    </div>
+  </section>
+
+  <section class="section section-notice" aria-label="About this company">
+    <aside class="notice">
+      <p><strong>Wexmoor is fictional.</strong> Its staff, customers, and data are invented, so that a security analyst can practise protecting a realistic business in the open. The IT support and security role is played by Goya.</p>
+    </aside>
+  </section>
+</BaseLayout>

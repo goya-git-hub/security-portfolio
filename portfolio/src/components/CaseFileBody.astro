@@ -1,0 +1,8 @@
+---
+// Renders the Markdown passed in the slot, then removes the title and summary
+// (the page header shows them) and strips inline styles (see bodyFor).
+import { bodyFor } from '../lib/caseFiles';
+
+const html = await Astro.slots.render('default');
+---
+<div class="prose" set:html={bodyFor(html)} />
