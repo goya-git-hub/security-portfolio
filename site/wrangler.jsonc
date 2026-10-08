@@ -3,7 +3,7 @@
 	"compatibility_date": "2026-09-25",
 	"compatibility_flags": ["global_fetch_strictly_public"],
 	"name": "wexmoor",
-	"main": "@astrojs/cloudflare/entrypoints/server",
+	"main": "./src/worker.ts",
 	"assets": {
 		"directory": "./dist",
 		"binding": "ASSETS"
