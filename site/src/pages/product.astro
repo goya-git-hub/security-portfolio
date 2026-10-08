@@ -3,20 +3,20 @@ export const prerender = true;
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const inputs = [
-  { term: 'Store sales', text: 'Daily exports from your point-of-sale system, by store and item.' },
-  { term: 'Warehouse stock', text: 'On-hand and in-transit inventory from your warehouse management system.' },
+  { term: 'Vehicle telematics', text: "Trips, fault codes, and odometer readings from each vehicle's onboard unit." },
+  { term: 'Part shipments', text: 'Lot numbers, suppliers, and received dates from your parts and receiving systems.' },
   { term: 'Carrier tracking', text: 'Pickup and delivery events from your carriers, matched to each shipment.' },
   { term: 'Supplier files', text: 'Lead times and order confirmations, sent by secure file transfer.' },
 ];
 
 const outputs = [
   {
-    term: 'A morning move list',
-    text: 'The handful of transfers and orders worth making today, each with the reason and the expected saving.',
+    term: 'A morning check list',
+    text: 'The handful of vehicles and part lots worth checking today, each with the reason it was flagged.',
   },
   {
-    term: 'Store forecasts',
-    text: 'Twelve weeks ahead, by day, for every item in every store, with the range of likely outcomes, not just one number.',
+    term: 'Part histories',
+    text: 'For every lot, the supplier, the received date, and each vehicle it went into, ready for a recall or a supplier review.',
   },
   {
     term: 'Lane reports',
@@ -26,23 +26,23 @@ const outputs = [
 
 const specs = [
   { name: 'Data refresh', value: 'Every night, from every connected source.' },
-  { name: 'Forecast range', value: 'Twelve weeks ahead, by day.' },
-  { name: 'Level of detail', value: 'Every item, in every store and warehouse.' },
+  { name: 'History', value: 'Three years of trips, fault codes, and shipments.' },
+  { name: 'Level of detail', value: 'Every vehicle, every trip, and every part lot.' },
   { name: 'Exports', value: 'CSV and Parquet files, or a shared dataset for your own analysts.' },
   {
     name: 'Customer workspaces',
-    value: 'Sign-in for your team, with separate roles for administrators and users.',
+    value: 'Invite-only sign-in for your team, with separate roles for administrators and users.',
     tag: 'In development',
   },
 ];
 ---
 <BaseLayout
   title="Product"
-  description="Wexmoor connects store sales, warehouse stock, carrier tracking, and supplier files, then tells planners where inventory should go next."
+  description="Wexmoor connects vehicle telematics, part shipments, carrier tracking, and supplier files, then shows teams which vehicles and parts need attention next."
 >
   <section class="section page-head" aria-labelledby="page-title">
-    <h1 id="page-title">One place for the data that moves your goods</h1>
-    <p class="lede">Wexmoor connects what you sell, what you stock, and what you ship, then tells your planners where inventory should go next.</p>
+    <h1 id="page-title">One place for the data that keeps vehicles moving</h1>
+    <p class="lede">Wexmoor connects what your vehicles report, what your suppliers ship, and what you receive, then shows your teams which vehicles and parts need attention next.</p>
   </section>
 
   <section class="section" aria-labelledby="connect-title">
@@ -61,7 +61,7 @@ const specs = [
 
   <section class="section" aria-labelledby="get-title">
     <div class="section-head">
-      <h2 id="get-title">What your planners get</h2>
+      <h2 id="get-title">What your teams get</h2>
     </div>
     <dl class="def-list">
       {outputs.map((item) => (
