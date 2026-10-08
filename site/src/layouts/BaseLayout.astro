@@ -7,7 +7,7 @@ interface Props {
 const { title, description } = Astro.props;
 const path = Astro.url.pathname;
 const isHome = path === '/';
-const pageTitle = isHome ? 'Wexmoor: forecasts for retail and logistics' : `${title} | Wexmoor`;
+const pageTitle = isHome ? 'Wexmoor: operations data for fleets and parts' : `${title} | Wexmoor`;
 
 const nav = [
   { href: '/product/', label: 'Product' },

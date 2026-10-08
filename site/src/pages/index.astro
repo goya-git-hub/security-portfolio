@@ -3,55 +3,55 @@ export const prerender = true;
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const moves = [
-  { store: 'Kelowna 112', item: 'Water, 24-pack', units: 340, call: 'Send early' },
-  { store: 'Moncton 087', item: 'Ice melt, 10 kg', units: 0, call: 'Hold' },
-  { store: 'Saskatoon 203', item: 'School backpacks', units: 128, call: 'On plan' },
-  { store: 'Kingston 044', item: 'Patio heaters', units: 36, call: 'Send early' },
-  { store: 'Red Deer 019', item: 'Snow shovels', units: 92, call: 'On plan' },
+  { record: 'Bus 4127', detail: 'Fault code P0217', count: '3', unit: 'trips', call: 'Inspect' },
+  { record: 'Lot BK-0918', detail: 'Supplier Fernlake', count: '1,200', unit: 'parts', call: 'Hold' },
+  { record: 'Truck 218', detail: 'Odometer 84,220 km', count: '41', unit: 'trips', call: 'On plan' },
+  { record: 'Lot WH-2231', detail: 'Received Oct 6', count: '480', unit: 'parts', call: 'Inspect' },
+  { record: 'Van 0563', detail: 'Odometer 62,310 km', count: '12', unit: 'trips', call: 'On plan' },
 ];
 const callClass: Record<string, string> = {
-  'Send early': 'tag tag-label',
+  Inspect: 'tag tag-label',
   'On plan': 'tag tag-plan',
   Hold: 'tag tag-hold',
 };
 
 const capabilities = [
   {
-    term: 'Forecasts demand for every store',
-    text: 'Daily forecasts for each item in each store, twelve weeks ahead, built from your own sales history, local weather, and promotions.',
+    term: 'Fleet telemetry workspace',
+    text: 'Trips, fault codes, and odometer readings for every vehicle in one view, so maintenance is planned before a breakdown, not after one.',
   },
   {
-    term: 'Shows stock across every warehouse',
-    text: 'On-hand and in-transit inventory in one view, so a shortage in one region can be covered from another before anyone notices.',
+    term: 'Part and shipment records you can trace',
+    text: 'Every lot keeps its supplier, its received date, and the vehicles it went into, so a recall reaches the right parts first.',
   },
   {
-    term: 'Holds carriers to their promises',
-    text: 'Pickup and delivery times matched against each shipment, lane by lane, so late carriers show up in the numbers, not in complaints.',
+    term: 'Access you can audit',
+    text: 'Each customer sees only its own workspace. Staff need an approved, time-limited reason to open customer data, and every look is logged.',
   },
 ];
 
 const steps = [
-  { name: 'Connect', text: 'Sales, stock, and carrier files arrive from the systems you already use.' },
+  { name: 'Connect', text: 'Telematics feeds, shipment files, and carrier events arrive from the systems you already use.' },
   { name: 'Check', text: 'Every file is validated. Bad rows are set aside and reported, never guessed at.' },
-  { name: 'Forecast', text: "Models run for each store and item, and compare themselves with last week's results." },
-  { name: 'Act', text: 'Planners start the day with a short list of moves, ranked by what they save.' },
+  { name: 'Link', text: "Each part lot is matched to its supplier and its vehicles, and compared with last week's records." },
+  { name: 'Act', text: 'Fleet and supply teams start the day with a short list of vehicles and lots to check.' },
 ];
 
 const customers = [
-  { name: 'Northline Grocers', className: 'logo-northline' },
+  { name: 'Northline Parts', className: 'logo-northline' },
   { name: 'Cascade Freight', className: 'logo-cascade' },
-  { name: 'Harbourview Home', className: 'logo-harbourview' },
+  { name: 'Harbourview Transit', className: 'logo-harbourview' },
   { name: 'Prairie Supply Co.', className: 'logo-prairie' },
 ];
 ---
 <BaseLayout
   title="Home"
-  description="Wexmoor forecasts store-by-store demand from sales, warehouse stock, and carrier data, so planners move inventory before shelves run short."
+  description="Wexmoor joins vehicle telematics with part and shipment records, so fleets and suppliers see how each vehicle runs and where each part came from."
 >
   <section class="section hero" aria-labelledby="hero-title">
     <div>
-      <h1 id="hero-title">Know what each store needs before the truck leaves.</h1>
-      <p class="lede">Wexmoor brings store sales, warehouse stock, and carrier data into one place, then forecasts demand store by store, so planners move inventory before shelves run short.</p>
+      <h1 id="hero-title">Trace every part to the vehicle it keeps running.</h1>
+      <p class="lede">Wexmoor brings vehicle telematics and part shipment records into one place, so fleets and suppliers see how each vehicle runs and where each part came from.</p>
       <div class="actions">
         <a class="button" href="/product/">See the product</a>
         <a class="text-link" href="/trust/">Read the Trust Center</a>
@@ -59,30 +59,30 @@ const customers = [
     </div>
     <figure class="manifest" aria-labelledby="manifest-title">
       <div class="manifest-head">
-        <p class="manifest-title" id="manifest-title">Tuesday's moves</p>
-        <p class="manifest-meta">Distribution centre 04, next seven days</p>
+        <p class="manifest-title" id="manifest-title">Tuesday's checks</p>
+        <p class="manifest-meta">Depot 04 and receiving dock, last 24 hours</p>
       </div>
       <table class="manifest-table" aria-labelledby="manifest-title">
         <thead>
           <tr>
-            <th scope="col">Store</th>
-            <th scope="col">Item</th>
-            <th scope="col" class="num">Units</th>
+            <th scope="col">Record</th>
+            <th scope="col">Detail</th>
+            <th scope="col" class="num">Count</th>
             <th scope="col">Call</th>
           </tr>
         </thead>
         <tbody>
           {moves.map((move) => (
             <tr>
-              <th scope="row" class="m-store">{move.store}</th>
-              <td class="m-item">{move.item}</td>
-              <td class="m-units num">{move.units}<span class="units-word"> units</span></td>
+              <th scope="row" class="m-store">{move.record}</th>
+              <td class="m-item">{move.detail}</td>
+              <td class="m-units num">{move.count}<span class="units-word"> {move.unit}</span></td>
               <td class="m-call"><span class={callClass[move.call]}>{move.call}</span></td>
             </tr>
           ))}
         </tbody>
       </table>
-      <figcaption>Refreshed overnight from sales, stock, and carrier feeds.</figcaption>
+      <figcaption>Refreshed overnight from telematics feeds and supplier shipment files.</figcaption>
     </figure>
   </section>
 
@@ -118,14 +118,14 @@ const customers = [
 
   <section class="section" aria-labelledby="customers-title">
     <div class="section-head">
-      <h2 id="customers-title">Teams that move goods with Wexmoor</h2>
+      <h2 id="customers-title">Teams that keep vehicles moving with Wexmoor</h2>
     </div>
     <ul class="customers">
       {customers.map((customer) => (
         <li><span class={customer.className}>{customer.name}</span></li>
       ))}
     </ul>
-    <p class="customers-note">Customer names are fictional, like the company.</p>
+    <p class="customers-note">Built for car-parts suppliers, transit and city fleets, and freight carriers. The names are fictional, like the company.</p>
   </section>
 
   <section class="band" aria-labelledby="band-title">
