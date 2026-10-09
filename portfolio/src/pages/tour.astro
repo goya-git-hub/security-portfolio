@@ -5,27 +5,27 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const gates = [
   {
     role: 'IT support',
-    shows: 'A lab of virtual machines built and documented from scratch, broken services diagnosed, and accounts and permissions managed.',
+    shows: 'Built and documented a lab of virtual machines from scratch, diagnosed broken services, and managed accounts and permissions.',
     open: { label: 'Read the lab write-up', href: '/labs/00-environment/' },
   },
   {
     role: 'Networking',
-    shows: 'Packet captures read and explained, a segmented office network designed and tested, and DNS and TLS set up on a real domain.',
+    shows: 'Reading and explaining packet captures, designing and testing a segmented office network, and setting up DNS and TLS on a real domain.',
     sealedUntil: 'Phase 1',
   },
   {
     role: 'Governance and risk',
-    shows: 'Written security policies, a runbook, and a threat model for a live website.',
+    shows: 'Writing security policies, a runbook, and a threat model for a live website.',
     sealedUntil: 'Phase 2',
   },
   {
     role: 'Security operations',
-    shows: "Phishing is a gift sent by email. This is where I learn to inspect it: investigations, a working SIEM, and detections tested against simulated attacks, including a trojan's persistence and its check-ins.",
+    shows: 'Investigating phishing and suspicious logins with a working SIEM, and writing detections that I test against simulated attacks.',
     sealedUntil: 'Phase 3',
   },
   {
     role: 'Cloud and web security',
-    shows: 'A web application broken, detected, and fixed in a safe training environment, a supply-chain incident rehearsed, and a full restore from backup.',
+    shows: 'Breaking, detecting, and fixing a web application in a safe training environment, rehearsing a supply-chain incident, and running a full restore from backup.',
     sealedUntil: 'Phase 4',
   },
 ];
@@ -43,16 +43,16 @@ const machines = [
 ---
 <BaseLayout
   title="Tour"
-  description="A one-minute walk-through of Goya's portfolio: one gate per role, each leading to the evidence for that job, and the lab inside the walls."
+  description="A short walk-through of Goya's portfolio: the evidence for each role, and how the lab is set up."
 >
   <section class="page-head" aria-labelledby="page-title">
     <h1 id="page-title">Tour</h1>
-    <p class="lede">A one-minute walk-through. Pick the gate for the role you're hiring for: each one leads to the evidence for that job.</p>
+    <p class="lede">A one-minute walk-through. Pick a role to see the evidence for it.</p>
   </section>
 
   <section class="section" aria-labelledby="gates-title">
-    <h2 id="gates-title">Pick a gate</h2>
-    <p>Open gates link to evidence. Sealed gates open as each phase is finished.</p>
+    <h2 id="gates-title">Pick a role</h2>
+    <p>Roles with a link have evidence now. The others get theirs as each phase is finished.</p>
     <ol class="gates">
       {gates.map((gate) => (
         <li class:list={['gate', gate.open ? 'gate-open' : 'gate-sealed']}>
@@ -66,7 +66,7 @@ const machines = [
           {gate.open ? (
             <p class="gate-state"><a href={gate.open.href}>{gate.open.label}</a></p>
           ) : (
-            <p class="gate-state">Sealed until {gate.sealedUntil}</p>
+            <p class="gate-state">Evidence arrives in {gate.sealedUntil}</p>
           )}
         </li>
       ))}
@@ -74,7 +74,7 @@ const machines = [
   </section>
 
   <section class="section" aria-labelledby="lab-title">
-    <h2 id="lab-title">Inside the walls: the lab</h2>
+    <h2 id="lab-title">The lab</h2>
     <figure class="lab">
       <div class="lab-frame">
         <div class="lab-head">
