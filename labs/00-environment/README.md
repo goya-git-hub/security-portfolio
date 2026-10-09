@@ -37,4 +37,4 @@ Mac (UTM host)
 | Wrangler | 4.146.0 | Mac, through npx |
 | Astro | 7.3.5 | site/ |
 | @astrojs/cloudflare | 14.3.3 | site/ |
-| Ubuntu Server | 26.04.1 LTS, ARM64 | both VMs |
+| Ubuntu Server | 26.04.1 LTS, ARM64 | lab-linux and lab-siem |
